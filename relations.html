@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relations with Companies</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background: linear-gradient(90deg, #007BFF, #00d4ff);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .daily-updates {
+            text-align: center;
+        }
+        .daily-updates button {
+            background: #3b6296;
+            color: white;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .daily-updates button:hover {
+            background: #377eb8;
+        }
+        .company {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .company-header h3 {
+            flex-grow: 1;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            cursor: text;
+            outline: none;
+            padding: 5px;
+        }
+        .company-header input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #007BFF;
+            color: white;
+        }
+        .add-employee-btn {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .add-employee-btn:hover {
+            background: #218838;
+        }
+        @media (max-width: 600px) {
+            .company-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .company-header input {
+                width: 100%;
+            }
+            th, td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Relations with Companies
+
+    </header>
+    <a href="/offcampus.html">Home</a>
+    <div class="container">
+        <div class="daily-updates">
+            <h2>Relations</h2>
+           
+            <button onclick="addCompany()">Add Company</button>
+            <div id="companies"></div>
+        </div>
+    </div>
+    <script>
+        function addCompany() {
+            const companiesDiv = document.getElementById('companies');
+            const companyDiv = document.createElement('div');
+            companyDiv.className = 'company';
+            
+            const companyHeader = document.createElement('div');
+            companyHeader.className = 'company-header';
+            
+            const companyName = document.createElement('h3');
+            companyName.innerText = 'Company Name';
+            companyName.contentEditable = true;
+            
+            const careerLink = document.createElement('input');
+            careerLink.type = 'text';
+            careerLink.placeholder = 'Enter Career Page Link';
+            
+            companyHeader.appendChild(companyName);
+            companyHeader.appendChild(careerLink);
+            companyDiv.appendChild(companyHeader);
+            
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+            
+            const headerRow = document.createElement('tr');
+            const headers = ['Employee Name', 'Designation', 'Info', 'LinkedIn Profile', 'Accepted'];
+            headers.forEach(headerText => {
+                const th = document.createElement('th');
+                th.innerText = headerText;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+            
+            const row = document.createElement('tr');
+            headers.forEach(headerText => {
+                const td = document.createElement('td');
+                if (headerText === 'Accepted') {
+                    td.innerHTML = '<input type="checkbox">';
+                } else {
+                    td.innerText = 'Enter Details';
+                    td.contentEditable = true;
+                }
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+            table.appendChild(tbody);
+            
+            companyDiv.appendChild(table);
+            
+            const addEmployeeButton = document.createElement('button');
+            addEmployeeButton.innerText = 'Add Employee';
+            addEmployeeButton.className = 'add-employee-btn';
+            addEmployeeButton.onclick = function () {
+                const newRow = row.cloneNode(true);
+                tbody.appendChild(newRow);
+            };
+            companyDiv.appendChild(addEmployeeButton);
+            companiesDiv.appendChild(companyDiv);
+        }
+    </script>
+</body>
+</html>

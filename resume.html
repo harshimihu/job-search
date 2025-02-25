@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .resume-preview {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resume Builder</h2>
+        
+        <!-- Personal Information -->
+        <h3>Personal Information</h3>
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="phone" placeholder="Phone">
+        <input type="text" id="address" placeholder="Address">
+        <input type="text" id="linkedin" placeholder="LinkedIn Profile">
+        
+        <!-- Objective -->
+        <h3>Objective</h3>
+        <textarea id="objective" placeholder="Write your career objective..."></textarea>
+
+        <!-- Education -->
+        <h3>Education</h3>
+        <textarea id="education" placeholder="Enter education details..."></textarea>
+        
+        <!-- Skills -->
+        <h3>Technical Skills</h3>
+        <textarea id="skills" placeholder="Enter skills..."></textarea>
+
+        <!-- Projects (Moved after Skills) -->
+        <h3>Projects</h3>
+        <div id="project-list"></div>
+        <button onclick="addProject()">Add Project</button>
+
+        <!-- Certifications -->
+        <h3>Certifications</h3>
+        <textarea id="certifications" placeholder="Enter certifications..."></textarea>
+
+        <!-- Achievements -->
+        <h3>Achievements</h3>
+        <textarea id="achievements" placeholder="Enter achievements..."></textarea>
+
+        <!-- Extracurricular Activities -->
+        <h3>Extracurricular Activities</h3>
+        <textarea id="extracurricular" placeholder="Enter extracurricular activities..."></textarea>
+
+        <!-- Generate Resume -->
+        <button onclick="generateResume()">Generate Resume</button>
+        <button onclick="downloadPDF()">Download as PDF</button>
+
+        <!-- Resume Preview -->
+        <div id="resume-preview" class="resume-preview"></div>
+    </div>
+
+    <script>
+        function addProject() {
+            let projectList = document.getElementById("project-list");
+            let projectDiv = document.createElement("div");
+            projectDiv.innerHTML = `
+                <input type="checkbox" class="project-check">
+                <input type="text" placeholder="Project Title" class="project-title">
+                <textarea placeholder="Project Description" class="project-desc"></textarea>
+            `;
+            projectList.appendChild(projectDiv);
+        }
+
+        function generateResume() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let address = document.getElementById("address").value;
+            let linkedin = document.getElementById("linkedin").value;
+            let objective = document.getElementById("objective").value;
+            let education = document.getElementById("education").value;
+            let skills = document.getElementById("skills").value;
+            let certifications = document.getElementById("certifications").value;
+            let achievements = document.getElementById("achievements").value;
+            let extracurricular = document.getElementById("extracurricular").value;
+
+            let projects = "";
+            document.querySelectorAll(".project-check").forEach((check, index) => {
+                if (check.checked) {
+                    let title = document.getElementsByClassName("project-title")[index].value;
+                    let desc = document.getElementsByClassName("project-desc")[index].value;
+                    projects += `<strong>${title}</strong>: ${desc}<br>`;
+                }
+            });
+
+            let resumeHTML = `
+                <h2>${name}</h2>
+                <p>${email} | ${phone} | ${address}</p>
+                <p><a href="${linkedin}" target="_blank">${linkedin}</a></p>
+                <hr>
+                <h3>Objective</h3>
+                <p>${objective}</p>
+                <h3>Education</h3>
+                <p>${education}</p>
+                <h3>Technical Skills</h3>
+                <p>${skills}</p>
+                <h3>Projects</h3>
+                <p>${projects}</p>
+                <h3>Certifications</h3>
+                <p>${certifications}</p>
+                <h3>Achievements</h3>
+                <p>${achievements}</p>
+                <h3>Extracurricular Activities</h3>
+                <p>${extracurricular}</p>
+            `;
+            document.getElementById("resume-preview").innerHTML = resumeHTML;
+        }
+
+        function downloadPDF() {
+            let { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.setFont("helvetica");
+            doc.setFontSize(12);
+            let resumeContent = document.getElementById("resume-preview").innerHTML;
+
+            doc.html(resumeContent, {
+                callback: function (doc) {
+                    doc.save("Resume.pdf");
+                },
+                x: 10,
+                y: 10
+            });
+        }
+    </script>
+</body>
+</html>

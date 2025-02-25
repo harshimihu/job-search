@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Tracker</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background: linear-gradient(90deg, #007BFF, #00d4ff);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+            max-width: 200px;
+        }
+        th {
+            background: #007BFF;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        textarea {
+            width: 100%;
+            resize: vertical;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        .button {
+            background: #007BFF;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Application Tracker
+    </header>
+    <div class="container">
+        <h2>Track Your Applications</h2>
+        <button class="button" onclick="addApplication()">Add Application</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Company Name</th>
+                    <th>Role</th>
+                    <th>Job Link</th>
+                    <th>Description</th>
+                    <th>Referral(s)</th>
+                    <th>Status</th>
+                    <th>Resume</th>
+                </tr>
+            </thead>
+            <tbody id="application-body"></tbody>
+        </table>
+    </div>
+    <script>
+        function addApplication() {
+            const tbody = document.getElementById('application-body');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td contenteditable="true">Enter Date</td>
+                <td contenteditable="true">Enter Company Name</td>
+                <td contenteditable="true">Enter Role</td>
+                <td contenteditable="true"><textarea>Enter Job Link</textarea></td>
+                <td contenteditable="true"><textarea>Enter Description</textarea></td>
+                <td>
+                    <div class="referral-container">
+                        <button class="button" onclick="addReferral(this)">Add Referral</button>
+                    </div>
+                </td>
+                <td>
+                    <select class="status-select" onchange="toggleOtherInput(this)">
+                        <option value="Pending">Pending</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <textarea class="hidden" placeholder="Specify Status"></textarea>
+                </td>
+                <td contenteditable="true"><textarea>Enter Resume Link</textarea></td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        function toggleOtherInput(select) {
+            const input = select.nextElementSibling;
+            if (select.value === "Other") {
+                input.classList.remove("hidden");
+            } else {
+                input.classList.add("hidden");
+                input.value = "";
+            }
+        }
+
+        function addReferral(button) {
+            const container = button.parentElement;
+            const referralDiv = document.createElement('div');
+            referralDiv.innerHTML = `
+                <input type="text" placeholder="Referral Name">
+                <select class="response-select" onchange="toggleResponseInput(this)">
+                    <option value="No Response">No Response</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Got Call">Got Call</option>
+                    <option value="Other">Other</option>
+                </select>
+                <textarea class="hidden" placeholder="Specify Response"></textarea>
+                <label>Yes<input type="checkbox"></label>
+                <label>No<input type="checkbox"></label>
+            `;
+            container.insertBefore(referralDiv, button);
+        }
+
+        function toggleResponseInput(select) {
+            const input = select.nextElementSibling;
+            if (select.value === "Other") {
+                input.classList.remove("hidden");
+            } else {
+                input.classList.add("hidden");
+                input.value = "";
+            }
+        }
+    </script>
+<a href="/offcampus.html">Home</a>
+</body>
+</html>                             

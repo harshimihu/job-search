@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OffCampus Journey</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0e3d7;
+            text-align: center;
+        }
+        header {
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            color: white;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav a {
+            display: block;
+            padding: 15px;
+            margin: 10px;
+            width: 90%;
+            max-width: 250px;
+            background: linear-gradient(90deg, #eceb98, #f35516);
+            color: rgb(24, 11, 11);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        nav a:hover {
+            background: linear-gradient(90deg, #cfcb88, #fd4828);
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        @media (min-width: 768px) {
+            nav {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav a {
+                margin: 10px;
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        OffCampus Journey
+    </header>
+    <nav>
+        <a href="/relations.html">Relation with companies</a>
+        <a href="/App_tarak.html">Application Updates</a>
+        <a href="#">Important Links</a>
+        <a href="#">LinkedIn Content Updates</a>
+        <a href="/resume.html">Resumes</a>
+        <a href="#">Concepts to Complete</a>
+    </nav>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDRszAtruOHyLSEFhvReWvTlTPzhzGCXdQ",
+          authDomain: "offcampus-journey.firebaseapp.com",
+          projectId: "offcampus-journey",
+          storageBucket: "offcampus-journey.firebasestorage.app",
+          messagingSenderId: "459881640339",
+          appId: "1:459881640339:web:d2e194ad8239fcbb43b866",
+          measurementId: "G-GCCW7ETH9N"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+</body>
+</html>
